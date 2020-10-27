@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const config = require('./config');
-const productRoutes = require('./routes/product');
+const {productRouter, categoryRouter, ownerRouter} = require('./routes');
 
 const app = express();
 
@@ -20,7 +20,9 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use('/api', productRoutes);
+app.use('/api', productRouter);
+app.use('/api', categoryRouter);
+app.use('/api', ownerRouter);
     
 app.listen(3000, (err)=> {
     if(err) console.log(err);
