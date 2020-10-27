@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/api', productRoutes);
-
+    
 app.listen(3000, (err)=> {
     if(err) console.log(err);
     console.log('Listening on 3000');
