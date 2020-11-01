@@ -35,9 +35,11 @@ router.get('/products/:productId', async (req,res)=> {
 });
 
 router.post('/products', upload.single('photo'), async (req,res)=> {
-    const {title,description,price,stockQuantity} = req.body;
+    const {ownerID,categoryID,title,description,price,stockQuantity} = req.body;
     try {
         const product = new productModel({
+            ownerID,
+            categoryID,
             title,
             description,
             photo: req.file.location,
@@ -59,17 +61,17 @@ router.post('/products', upload.single('photo'), async (req,res)=> {
 
 router.put('/products/:productId',upload.single('photo'), async (req,res)=> {
     const {productId} = req.params;
-    const {title,description,price,stockQuantity,category,owner} = req.body;
+    const {title,description,price,stockQuantity,ownerID,categoryID,} = req.body;
     try {
         const product = await productModel.findOneAndUpdate({_id: productId}, {
             $set: {
                 title,
                 price,
-                category,
+                categoryID,
                 description,
                 photo: req.file.location,
                 stockQuantity,
-                owner
+                ownerID
             }
         }, {upsert: true});
         res.json({

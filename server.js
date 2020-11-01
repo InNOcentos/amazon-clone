@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config');
 const {productRouter, categoryRouter, ownerRouter} = require('./routes');
@@ -15,7 +16,7 @@ mongoose.connect(`mongodb+srv://${config.db_user}:${config.db_password}@amazon-c
     }
 })
 
-
+app.use(cors())
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
