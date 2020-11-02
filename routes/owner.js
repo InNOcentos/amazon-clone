@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const { owner: ownerModel } = require("../models");
 
+const upload = require('../middlewares/upload_photo');
+
 router.get("/owners", async (req, res) => {
   try {
     const owners = await ownerModel.find();
@@ -16,12 +18,13 @@ router.get("/owners", async (req, res) => {
   }
 });
 
-router.post("/owners", async (req, res) => {
-  const { name, about, photo } = req.body;
+router.post("/owners",upload.single('photo'), async (req, res) => {
+  const { name, about } = req.body;
   try {
     const owner = new ownerModel({
       name,
       about,
+      photo: req.file.location,
     });
 
     await owner.save();

@@ -25,7 +25,7 @@ app.use('/api', productRouter);
 app.use('/api', categoryRouter);
 app.use('/api', ownerRouter);
     
-app.listen(3000, (err)=> {
+app.listen(8080, (err)=> {
     if(err) console.log(err);
-    console.log('Listening on 3000');
+    console.log('Listening on 8080');
 })
